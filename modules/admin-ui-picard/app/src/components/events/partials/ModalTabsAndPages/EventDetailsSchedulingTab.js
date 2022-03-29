@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Notifications from "../../../shared/Notifications";
 import {connect} from "react-redux";
 import {removeNotificationWizardForm} from "../../../../actions/notificationActions";
@@ -45,7 +45,7 @@ const EventDetailsSchedulingTab = ({ eventId, t,
 
     useEffect(() => {
         removeNotificationWizardForm();
-        checkConflicts(eventId, source.start.date, source.end.date, source.device.id).then(r => {});
+        checkConflicts(eventId, source.start.date, source.end.date, source.device.id).then();
     }, []);
 
     // Get info about the current language and its date locale
@@ -110,7 +110,7 @@ const EventDetailsSchedulingTab = ({ eventId, t,
         setFieldValue('scheduleEndDate', endDate.setHours(0, 0, 0));
         setFieldValue('scheduleStartDate', startDate.setHours(0, 0, 0));
 
-        checkConflicts(eventId, startDate, endDate, formikValues.captureAgent).then(r => {});
+        checkConflicts(eventId, startDate, endDate, formikValues.captureAgent).then();
     };
 
     const changeStartDate = (value, formikValues, setFieldValue) => {
@@ -166,7 +166,7 @@ const EventDetailsSchedulingTab = ({ eventId, t,
         setDuration(startDate, endDate, setFieldValue);
         setFieldValue('scheduleEndDate', endDate.setHours(0,0,0));
 
-        checkConflicts(eventId, startDate, endDate, formikValues.captureAgent).then(r => {});
+        checkConflicts(eventId, startDate, endDate, formikValues.captureAgent).then();
     }
 
     const changeEndHour = async (value, formikValues, setFieldValue) => {
@@ -210,7 +210,7 @@ const EventDetailsSchedulingTab = ({ eventId, t,
 
         setFieldValue('scheduleEndDate', endDate.setHours(0,0,0));
 
-        checkConflicts(eventId, startDate, endDate, formikValues.captureAgent).then(r => {});
+        checkConflicts(eventId, startDate, endDate, formikValues.captureAgent).then();
     }
 
     const changeDurationHour = async (value, formikValues, setFieldValue) => {
@@ -285,7 +285,7 @@ const EventDetailsSchedulingTab = ({ eventId, t,
         const endDate = makeDate(values.scheduleEndDate, values.scheduleEndHour, values.scheduleEndMinute);
         checkConflicts(eventId, startDate, endDate, values.captureAgent).then(r => {
             if(r && !(conflicts.length > 0)){
-                saveSchedulingInfo(eventId, values, startDate, endDate).then(r => {});
+                saveSchedulingInfo(eventId, values, startDate, endDate).then();
             } else {
                 addNotification('error', 'EVENTS_NOT_UPDATED', -1, null, NOTIFICATION_CONTEXT);
             }
@@ -343,7 +343,7 @@ const EventDetailsSchedulingTab = ({ eventId, t,
                                 enableReinitialize
                                 initialValues={getInitialValues()}
                                 onSubmit={(values) =>
-                                    submitForm(values).then(r => {})
+                                    submitForm(values).then()
                                 }
                             >
                                 {formik => (

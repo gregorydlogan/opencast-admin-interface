@@ -53,8 +53,7 @@ const PublishCell = ({ row }) => {
                                             <a href={publication.url}
                                                className="popover__list-item"
                                                              target="_blank"
-                                                             key = {key}
-                                                             enabled>
+                                                             key = {key}>
                                                 <span>{t(publication.name)}</span>
                                             </a>
                                         ) : (

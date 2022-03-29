@@ -11,7 +11,7 @@ import {humanReadableBytesFilter} from "../../../../utils/eventDetailsUtils";
 /**
  * This component manages the publication details sub-tab for assets tab of event details modal
  */
-const EventDetailsAssetPublicationDetails = ({ eventId, t, setHierarchy,
+const EventDetailsAssetPublicationDetails = ({ t, setHierarchy,
                                             publication, isFetching }) => {
 
     const openSubTab = (subTabName) => {

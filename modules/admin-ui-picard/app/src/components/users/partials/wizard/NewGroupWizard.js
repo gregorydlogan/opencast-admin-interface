@@ -17,9 +17,7 @@ import {logger} from "../../../../utils/logger";
  */
 const NewGroupWizard = ({ close, postNewGroup }) => {
 
-    const initialValues = initialFormValuesNewGroup;
-
-    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialValues);
+    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialFormValuesNewGroup);
 
     // Caption of steps used by Stepper
     const steps = [

@@ -8,7 +8,7 @@ import {humanReadableBytesFilter} from "../../../../utils/eventDetailsUtils";
 /**
  * This component manages the attachment details sub-tab for assets tab of event details modal
  */
-const EventDetailsAssetAttachmentDetails = ({ eventId, t, setHierarchy,
+const EventDetailsAssetAttachmentDetails = ({ t, setHierarchy,
                                             attachment, isFetching }) => {
 
     const openSubTab = (subTabName) => {

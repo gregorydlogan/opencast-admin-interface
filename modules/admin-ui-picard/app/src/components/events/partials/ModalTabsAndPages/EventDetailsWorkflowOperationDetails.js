@@ -12,7 +12,7 @@ import EventDetailsTabHierarchyNavigation from "./EventDetailsTabHierarchyNaviga
 /**
  * This component manages the workflow operation details for the workflows tab of the event details modal
  */
-const EventDetailsWorkflowOperationDetails =  ({ eventId, t, setHierarchy,
+const EventDetailsWorkflowOperationDetails =  ({ t, setHierarchy,
                                                  operationDetails, isFetching
                                          }) => {
 

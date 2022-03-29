@@ -14,7 +14,7 @@ import EventDetailsTabHierarchyNavigation from "./EventDetailsTabHierarchyNaviga
 /**
  * This component manages the workflow error details for the workflows tab of the event details modal
  */
-const EventDetailsWorkflowErrorDetails =  ({ eventId, t, setHierarchy,
+const EventDetailsWorkflowErrorDetails =  ({ t, setHierarchy,
                                          errorDetails, isFetching
                                      }) => {
 

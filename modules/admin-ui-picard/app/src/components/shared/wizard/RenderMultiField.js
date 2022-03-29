@@ -153,7 +153,7 @@ const EditMultiValue = ({ setEditMode, inputValue, removeItem, handleChange, han
 };
 
 // Shows the values of the array in non-edit mode
-const ShowValue = ({ setEditMode, form: { initialValues }, field, showCheck, fieldValue }) => {
+const ShowValue = ({ setEditMode, form: { initialValues }, field, showCheck }) => {
     return (
         <div onClick={() => setEditMode(true)}>
             {(field.value instanceof Array && field.value.length !== 0) ? (

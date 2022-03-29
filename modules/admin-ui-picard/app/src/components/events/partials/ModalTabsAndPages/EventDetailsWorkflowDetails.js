@@ -23,9 +23,9 @@ const EventDetailsWorkflowDetails =  ({ eventId, t, setHierarchy,
         removeNotificationWizardForm();
         setHierarchy(tabType);
         if(tabType === "workflow-operations"){
-            fetchOperations(eventId, workflowData.wiid).then(r => {});
+            fetchOperations(eventId, workflowData.wiid).then();
         } else if(tabType === "errors-and-warnings"){
-            fetchErrors(eventId, workflowData.wiid).then(r => {});
+            fetchErrors(eventId, workflowData.wiid).then();
         }
     }
 

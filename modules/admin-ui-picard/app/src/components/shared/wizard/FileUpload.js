@@ -45,7 +45,7 @@ const FileUpload = ({ descriptionKey, labelKey, buttonKey, acceptableTypes, file
                 formik.setFieldValue(fileName, file.name);
 
             }
-        }).catch(res => {
+        }).catch(() => {
             addNotification('error', 'NOTIFICATIONS.BUMPER_UPLOAD_ERROR', -1, null, NOTIFICATION_CONTEXT);
         })
     }

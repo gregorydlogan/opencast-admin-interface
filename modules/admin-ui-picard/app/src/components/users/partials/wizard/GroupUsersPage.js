@@ -31,7 +31,7 @@ const GroupUsersPage = ({ previousPage, nextPage, formik, isEdit }) => {
             setLoading(false);
         }
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     return (

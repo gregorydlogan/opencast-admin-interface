@@ -21,7 +21,7 @@ const UserRolesTab = ({ formik }) => {
             setLoading(false);
         }
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     return (

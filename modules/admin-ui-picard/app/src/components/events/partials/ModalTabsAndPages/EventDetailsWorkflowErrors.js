@@ -20,6 +20,7 @@ const EventDetailsWorkflowErrors =  ({ eventId, t, setHierarchy,
                                          }) => {
 
     const severityColor = (severity) => {
+        // eslint-disable-next-line default-case
       switch (severity.toUpperCase()) {
           case 'FAILURE':
             return 'red';
@@ -34,7 +35,7 @@ const EventDetailsWorkflowErrors =  ({ eventId, t, setHierarchy,
         removeNotificationWizardForm();
         setHierarchy(tabType);
         if(tabType === "workflow-error-details"){
-            fetchErrorDetails(eventId, workflowId, errorId).then(r => {});
+            fetchErrorDetails(eventId, workflowId, errorId).then();
         }
     }
 

@@ -45,7 +45,7 @@ function showHotkeyCheatSheet() {
 
 function logout() {
     axios.get('/j_spring_security_logout')
-        .then(response => {
+        .then(() => {
             logger.info("Successful logout");
         })
         .catch(response => {

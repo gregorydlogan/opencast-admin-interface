@@ -50,7 +50,7 @@ const EditScheduledEventsEditPage = ({ previousPage, nextPage, formik, loadingIn
             setLoading(false);
         }
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     // Render input device options of currently chosen input device

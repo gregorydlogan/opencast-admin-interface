@@ -9,7 +9,6 @@ import {
 } from "../../../../selectors/seriesDetailsSelectors";
 import {connect} from "react-redux";
 import {updateExtendedSeriesMetadata, updateSeriesMetadata} from "../../../../thunks/seriesDetailsThunks";
-import SeriesDetailsExtendedMetadataTab from "../ModalTabsAndPages/SeriesDetailsExtendedMetadataTab";
 import SeriesDetailsAccessTab from "../ModalTabsAndPages/SeriesDetailsAccessTab";
 import SeriesDetailsThemeTab from "../ModalTabsAndPages/SeriesDetailsThemeTab";
 import SeriesDetailsStatisticTab from "../ModalTabsAndPages/SeriesDetailsStatisticTab";

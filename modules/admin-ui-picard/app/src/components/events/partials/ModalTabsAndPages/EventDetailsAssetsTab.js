@@ -29,21 +29,21 @@ const EventDetailsAssetsTab = ({ eventId, t, setHierarchy,
 
     useEffect(() => {
         removeNotificationWizardForm();
-        fetchAssets(eventId).then(r => {});
+        fetchAssets(eventId).then();
     }, []);
 
     const openSubTab = (subTabName, newassetupload, bool1 = false, bool2 = true) => {
         removeNotificationWizardForm();
         if(subTabName === "asset-attachments"){
-            fetchAttachments(eventId).then(r => {});
+            fetchAttachments(eventId).then();
         } else if(subTabName === "asset-attachments"){
-            fetchAttachments(eventId).then(r => {});
+            fetchAttachments(eventId).then();
         } else if(subTabName === "asset-catalogs"){
-            fetchCatalogs(eventId).then(r => {});
+            fetchCatalogs(eventId).then();
         } else if(subTabName === "asset-media"){
-            fetchMedia(eventId).then(r => {});
+            fetchMedia(eventId).then();
         } else if(subTabName === "asset-publications"){
-            fetchPublications(eventId).then(r => {});
+            fetchPublications(eventId).then();
         }
         setHierarchy(subTabName);
     };

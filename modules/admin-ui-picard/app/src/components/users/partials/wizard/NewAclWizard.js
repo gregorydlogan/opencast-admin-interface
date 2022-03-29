@@ -16,9 +16,7 @@ import AclAccessPage from "./AclAccessPage";
  * This component manages the pages of the new ACL wizard
  */
 const NewAclWizard = ({ close, postNewAcl }) => {
-    const initialValues = initialFormValuesNewAcl;
-
-    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialValues);
+    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialFormValuesNewAcl);
 
     const steps = [
         {

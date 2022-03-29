@@ -57,7 +57,7 @@ i18n
 
         interpolation: {
             escapeValue: false,
-            format: function(value, format, lng) {
+            format: function(value, format) {
                 if (value instanceof Date) {
                     return moment(value).format(format);
                 }

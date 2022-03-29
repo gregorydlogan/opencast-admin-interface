@@ -1,7 +1,8 @@
-import {loadFiltersSuccess, loadFiltersFailure, loadFiltersInProgress, loadStats} from '../actions/tableFilterActions';
+import {loadFiltersFailure, loadFiltersInProgress, loadFiltersSuccess, loadStats} from '../actions/tableFilterActions';
 import axios from "axios";
 import {relativeDateSpanToFilterValue} from "../utils/dateUtils";
 import {logger} from "../utils/logger";
+
 /**
 * This file contains methods/thunks used to query the REST-API of Opencast to get the filters of a certain resource type.
 * This information is used to filter the entries of the table in the main view.
@@ -15,9 +16,7 @@ export const fetchFilters = resource => async dispatch => {
         const data = await axios.get(`/admin-ng/resources/${resource}/filters.json`);
         const resourceData = await data.data;
 
-        let response = transformResponse(resourceData);
-
-        const filters = response
+        let filters = transformResponse(resourceData)
         const filtersList = Object.keys(filters.filters).map(key => {
             let filter = filters.filters[key];
             filter.name = key;

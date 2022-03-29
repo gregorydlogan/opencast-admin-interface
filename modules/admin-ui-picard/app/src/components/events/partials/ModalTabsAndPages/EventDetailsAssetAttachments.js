@@ -14,7 +14,7 @@ const EventDetailsAssetAttachments = ({ eventId, t, setHierarchy,
 
     const openSubTab = (subTabName, attachmentId = '') => {
         if(subTabName === 'attachment-details'){
-            loadAttachmentDetails(eventId, attachmentId).then(r => {});
+            loadAttachmentDetails(eventId, attachmentId).then();
         }
         setHierarchy(subTabName);
     }

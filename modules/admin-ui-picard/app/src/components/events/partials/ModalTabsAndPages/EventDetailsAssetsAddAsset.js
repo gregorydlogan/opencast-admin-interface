@@ -9,7 +9,7 @@ import {Formik} from "formik";
 /**
  * This component manages the add asset sub-tab for assets tab of event details modal
  */
-const EventDetailsAssetsAddAsset = ({ eventId, t, setHierarchy}) => {
+const EventDetailsAssetsAddAsset = ({ t, setHierarchy}) => {
 
     const openSubTab = (subTabName) => {
         setHierarchy(subTabName);

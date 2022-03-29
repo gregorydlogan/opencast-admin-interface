@@ -94,7 +94,7 @@ const EditTableViewModal = ({  showModal, handleClose, resource, activeColumns, 
                                                             <div
                                                                 className="title">{t(column.label)}</div>
                                                             <a className="move-item add"
-                                                               onClick={() => changeColumn(column, false)}></a>
+                                                               onClick={() => changeColumn(column, false)}/>
                                                         </li> :
                                                         null
                                                 )

@@ -33,12 +33,12 @@ const DeleteSeriesModal = ({ close, selectedRows, deleteMultipleSeries }) => {
           }
           setSelectedSeries(series);
       }
-      fetchData();
+      fetchData().then(() => {});
 
   }, []);
 
   const deleteSelectedSeries = () => {
-      const response = deleteMultipleSeries(selectedSeries);
+      deleteMultipleSeries(selectedSeries);
       close();
   };
 

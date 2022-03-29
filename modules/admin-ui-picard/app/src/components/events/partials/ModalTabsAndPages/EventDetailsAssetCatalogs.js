@@ -14,7 +14,7 @@ const EventDetailsAssetCatalogs = ({ eventId, t, setHierarchy,
 
     const openSubTab = (subTabName, catalogId = '') => {
         if(subTabName === 'catalog-details'){
-            loadCatalogDetails(eventId, catalogId).then(r => {});
+            loadCatalogDetails(eventId, catalogId).then();
         }
         setHierarchy(subTabName);
     }

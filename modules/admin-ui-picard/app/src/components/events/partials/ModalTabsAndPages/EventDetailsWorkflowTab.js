@@ -29,7 +29,7 @@ const EventDetailsWorkflowTab = ({ eventId, t, close, setHierarchy,
 
     useEffect(() => {
         removeNotificationWizardForm();
-        loadWorkflows(eventId).then(r => {});
+        loadWorkflows(eventId).then();
     }, [])
     
     const isCurrentWorkflow = (workflowId) => {
@@ -50,7 +50,7 @@ const EventDetailsWorkflowTab = ({ eventId, t, close, setHierarchy,
     }
 
     const openSubTab = (tabType, workflowId) => {
-        loadWorkflowDetails(eventId, workflowId).then(r => {});
+        loadWorkflowDetails(eventId, workflowId).then();
         setHierarchy(tabType);
         removeNotificationWizardForm();
     }

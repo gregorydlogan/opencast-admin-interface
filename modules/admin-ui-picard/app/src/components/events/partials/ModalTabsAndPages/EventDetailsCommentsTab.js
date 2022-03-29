@@ -129,7 +129,7 @@ const EventDetailsCommentsTab = ({ eventId, header, t,
                                                     {t('EVENTS.EVENTS.DETAILS.COMMENTS.REPLY')}
                                                 </a>
                                             )}
-                                            <span className="resolve" ng-class="{ resolved : comment.resolvedStatus }">
+                                            <span className="resolve" style={{ resolved : comment.resolvedStatus }}>
                                                 { t('EVENTS.EVENTS.DETAILS.COMMENTS.RESOLVED') }
                                             </span>
 

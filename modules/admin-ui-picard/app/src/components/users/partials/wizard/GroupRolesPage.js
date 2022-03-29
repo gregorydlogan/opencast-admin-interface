@@ -30,7 +30,7 @@ const GroupRolesPage = ({ previousPage, nextPage, formik, isEdit }) => {
             setLoading(false);
         }
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     return (

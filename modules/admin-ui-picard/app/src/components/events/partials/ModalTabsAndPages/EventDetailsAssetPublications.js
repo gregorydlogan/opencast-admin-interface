@@ -14,7 +14,7 @@ const EventDetailsAssetPublications = ({ eventId, t, setHierarchy,
 
     const openSubTab = (subTabName, publicationId = '') => {
         if(subTabName === 'publication-details'){
-            loadPublicationDetails(eventId, publicationId).then(r => {});
+            loadPublicationDetails(eventId, publicationId).then();
         }
         setHierarchy(subTabName);
     }

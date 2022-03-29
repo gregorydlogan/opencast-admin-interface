@@ -17,9 +17,7 @@ import {NewThemeSchema} from "../../../../utils/validate";
  */
 const NewThemeWizard = ({ close, postNewTheme }) => {
 
-    const initialValues = initialFormValuesNewThemes;
-
-    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialValues);
+    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialFormValuesNewThemes);
 
     // Caption of steps used by Stepper
     const steps = [

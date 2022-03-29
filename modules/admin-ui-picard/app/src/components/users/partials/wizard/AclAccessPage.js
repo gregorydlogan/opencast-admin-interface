@@ -43,7 +43,7 @@ const AclAccessPage = ({ previousPage, nextPage, formik, addNotification, remove
             setLoading(false);
         }
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     const handleTemplateChange = async (e) => {

@@ -1,78 +1,78 @@
 import axios from "axios";
 import {
-    loadEventPoliciesInProgress,
-    loadEventPoliciesSuccess,
-    loadEventPoliciesFailure,
-    loadEventCommentsInProgress,
-    loadEventCommentsSuccess,
-    loadEventCommentsFailure,
-    saveCommentInProgress,
-    saveCommentDone,
-    saveCommentReplyInProgress,
-    saveCommentReplyDone,
-    loadEventWorkflowsInProgress,
-    loadEventWorkflowsSuccess,
-    loadEventWorkflowsFailure,
-    setEventWorkflowDefinitions,
-    setEventWorkflow,
-    setEventWorkflowConfiguration,
+    checkConflictsFailure,
+    checkConflictsInProgress,
+    checkConflictsSuccess,
+    deleteEventWorkflowFailure,
+    deleteEventWorkflowInProgress,
+    deleteEventWorkflowSuccess,
+    doEventWorkflowActionFailure,
     doEventWorkflowActionInProgress,
     doEventWorkflowActionSuccess,
-    doEventWorkflowActionFailure,
-    deleteEventWorkflowInProgress,
-    deleteEventWorkflowFailure,
-    deleteEventWorkflowSuccess,
-    loadEventPublicationsInProgress,
-    loadEventPublicationsSuccess,
-    loadEventPublicationsFailure,
-    loadEventWorkflowDetailsInProgress,
-    loadEventWorkflowDetailsSuccess,
-    loadEventWorkflowDetailsFailure,
-    loadEventWorkflowOperationsInProgress,
-    loadEventWorkflowOperationsSuccess,
-    loadEventWorkflowOperationsFailure,
-    loadEventWorkflowOperationDetailsFailure,
-    loadEventWorkflowOperationDetailsSuccess,
-    loadEventWorkflowOperationDetailsInProgress,
-    loadEventWorkflowErrorsInProgress,
-    loadEventWorkflowErrorsSuccess,
-    loadEventWorkflowErrorsFailure,
-    loadEventWorkflowErrorDetailsInProgress,
-    loadEventWorkflowErrorDetailsSuccess,
-    loadEventWorkflowErrorDetailsFailure,
-    loadEventMetadataInProgress,
-    loadEventMetadataSuccess,
-    loadEventMetadataFailure,
-    setEventMetadata,
-    setExtendedEventMetadata,
-    loadEventAssetsInProgress,
-    loadEventAssetsSuccess,
-    loadEventAssetsFailure,
-    loadEventAssetAttachmentsSuccess,
+    loadEventAssetAttachmentDetailsFailure,
+    loadEventAssetAttachmentDetailsSuccess,
     loadEventAssetAttachmentsFailure,
+    loadEventAssetAttachmentsSuccess,
+    loadEventAssetCatalogDetailsFailure,
+    loadEventAssetCatalogDetailsSuccess,
     loadEventAssetCatalogsFailure,
     loadEventAssetCatalogsSuccess,
-    loadEventAssetMediaSuccess,
+    loadEventAssetMediaDetailsFailure,
+    loadEventAssetMediaDetailsSuccess,
     loadEventAssetMediaFailure,
+    loadEventAssetMediaSuccess,
+    loadEventAssetPublicationDetailsFailure,
+    loadEventAssetPublicationDetailsSuccess,
     loadEventAssetPublicationsFailure,
     loadEventAssetPublicationsSuccess,
-    loadEventAssetAttachmentDetailsSuccess,
-    loadEventAssetAttachmentDetailsFailure,
-    loadEventAssetCatalogDetailsSuccess,
-    loadEventAssetCatalogDetailsFailure,
-    loadEventAssetMediaDetailsSuccess,
-    loadEventAssetMediaDetailsFailure,
-    loadEventAssetPublicationDetailsSuccess,
-    loadEventAssetPublicationDetailsFailure,
+    loadEventAssetsFailure,
+    loadEventAssetsInProgress,
+    loadEventAssetsSuccess,
+    loadEventCommentsFailure,
+    loadEventCommentsInProgress,
+    loadEventCommentsSuccess,
+    loadEventMetadataFailure,
+    loadEventMetadataInProgress,
+    loadEventMetadataSuccess,
+    loadEventPoliciesFailure,
+    loadEventPoliciesInProgress,
+    loadEventPoliciesSuccess,
+    loadEventPublicationsFailure,
+    loadEventPublicationsInProgress,
+    loadEventPublicationsSuccess,
+    loadEventSchedulingFailure,
     loadEventSchedulingInProgress,
     loadEventSchedulingSuccess,
-    loadEventSchedulingFailure,
-    checkConflictsFailure,
-    checkConflictsSuccess,
-    checkConflictsInProgress,
+    loadEventWorkflowDetailsFailure,
+    loadEventWorkflowDetailsInProgress,
+    loadEventWorkflowDetailsSuccess,
+    loadEventWorkflowErrorDetailsFailure,
+    loadEventWorkflowErrorDetailsInProgress,
+    loadEventWorkflowErrorDetailsSuccess,
+    loadEventWorkflowErrorsFailure,
+    loadEventWorkflowErrorsInProgress,
+    loadEventWorkflowErrorsSuccess,
+    loadEventWorkflowOperationDetailsFailure,
+    loadEventWorkflowOperationDetailsInProgress,
+    loadEventWorkflowOperationDetailsSuccess,
+    loadEventWorkflowOperationsFailure,
+    loadEventWorkflowOperationsInProgress,
+    loadEventWorkflowOperationsSuccess,
+    loadEventWorkflowsFailure,
+    loadEventWorkflowsInProgress,
+    loadEventWorkflowsSuccess,
+    saveCommentDone,
+    saveCommentInProgress,
+    saveCommentReplyDone,
+    saveCommentReplyInProgress,
     saveEventSchedulingFailure,
-    saveEventSchedulingSuccess,
     saveEventSchedulingInProgress,
+    saveEventSchedulingSuccess,
+    setEventMetadata,
+    setEventWorkflow,
+    setEventWorkflowConfiguration,
+    setEventWorkflowDefinitions,
+    setExtendedEventMetadata,
 } from '../actions/eventDetailsActions';
 import {addNotification} from "./notificationThunks";
 import {
@@ -85,8 +85,8 @@ import {NOTIFICATION_CONTEXT} from "../configs/modalConfig";
 import {
     getBaseWorkflow,
     getCaptureAgents,
-    getMetadata,
     getExtendedMetadata,
+    getMetadata,
     getSchedulingSource,
     getWorkflow,
     getWorkflowDefinitions,
@@ -493,8 +493,7 @@ export const fetchAccessPolicies = (eventId) => async (dispatch) => {
 export const fetchHasActiveTransactions = (eventId) => async () => {
     try {
         const transactionsData = await axios.get(`/admin-ng/event/${eventId}/hasActiveTransaction`);
-        const hasActiveTransactions = await transactionsData.data;
-        return hasActiveTransactions;
+        return await transactionsData.data;
     } catch (e) {
         logger.error(e);
     }
@@ -788,7 +787,7 @@ export const saveSchedulingInfo = (eventId, values, startDate, endDate) => async
 
     // save new scheduling information
     await axios.put(`/admin-ng/event/${eventId}/scheduling`, data, headers)
-        .then( response => {
+        .then( () => {
             dispatch(removeNotificationWizardForm());
             dispatch(saveEventSchedulingSuccess(source));
             dispatch(fetchSchedulingInfo(eventId));
@@ -908,12 +907,12 @@ export const performWorkflowAction = (eventId, workflowId, action, close) => asy
     };
 
     axios.put(`/admin-ng/event/${eventId}/workflows/${workflowId}/action/${action}`, data, headers)
-        .then( response => {
+        .then( () => {
             dispatch(addNotification('success', 'EVENTS_PROCESSING_ACTION_' + action, -1, null, NOTIFICATION_CONTEXT));
             close();
             dispatch(doEventWorkflowActionSuccess());
         })
-        .catch( response => {
+        .catch( () => {
             dispatch(addNotification('error', 'EVENTS_PROCESSING_ACTION_NOT_' + action, -1, null, NOTIFICATION_CONTEXT));
             dispatch(doEventWorkflowActionFailure());
         });
@@ -923,7 +922,7 @@ export const deleteWorkflow = (eventId, workflowId) => async (dispatch, getState
     dispatch(deleteEventWorkflowInProgress());
 
     axios.delete(`/admin-ng/event/${eventId}/workflows/${workflowId}`)
-        .then( response => {
+        .then( () => {
             dispatch(addNotification('success', 'EVENTS_PROCESSING_DELETE_WORKFLOW', -1, null, NOTIFICATION_CONTEXT));
 
             const state = getState();
@@ -935,7 +934,7 @@ export const deleteWorkflow = (eventId, workflowId) => async (dispatch, getState
                 dispatch(deleteEventWorkflowSuccess(workflows.entries));
             }
         })
-        .catch( response => {
+        .catch( () => {
             dispatch(addNotification('error', 'EVENTS_PROCESSING_DELETE_WORKFLOW_FAILED', -1, null, NOTIFICATION_CONTEXT));
             dispatch(deleteEventWorkflowFailure());
         });

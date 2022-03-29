@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {style_nav, style_nav_hierarchy, style_nav_hierarchy_inactive, error_detail_style} from "../../../../utils/eventDetailsUtils";
+import {style_nav, style_nav_hierarchy, style_nav_hierarchy_inactive} from "../../../../utils/eventDetailsUtils";
 
 
 /**

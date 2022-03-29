@@ -16,9 +16,7 @@ import {usePageFunctions} from "../../../../hooks/wizardHooks";
 const StartTaskModal = ({ close, postTasks }) => {
     const { t } = useTranslation();
 
-    const initialValues = initialFormValuesStartTask;
-
-    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialValues);
+    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialFormValuesStartTask);
 
     const steps = [
         {

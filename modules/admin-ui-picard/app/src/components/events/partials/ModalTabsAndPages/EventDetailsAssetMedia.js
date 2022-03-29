@@ -14,7 +14,7 @@ const EventDetailsAssetMedia = ({ eventId, t, setHierarchy,
 
     const openSubTab = (subTabName, mediaId = '') => {
         if(subTabName === 'media-details'){
-            loadMediaDetails(eventId, mediaId).then(r => {});
+            loadMediaDetails(eventId, mediaId).then();
         }
         setHierarchy(subTabName);
     }

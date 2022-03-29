@@ -17,9 +17,7 @@ import {logger} from "../../../../utils/logger";
 const EditScheduledEventsModal = ({ close, updateScheduledEventsBulk }) => {
     const { t } = useTranslation();
 
-    const initialValues = initialFormValuesEditScheduledEvents;
-
-    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialValues);
+    const [snapshot, page, nextPage, previousPage] = usePageFunctions(0, initialFormValuesEditScheduledEvents);
 
     const steps = [
         {

@@ -23,7 +23,7 @@ const currentLanguage = getCurrentLanguageInformation();
 const EditMetadataEventsModal = ({ close, selectedRows, updateBulkMetadata, user }) => {
     const { t } = useTranslation();
 
-    const [selectedEvents, setSelectedEvents] = useState(selectedRows);
+    const [selectedEvents] = useState(selectedRows);
     const [metadataFields, setMetadataFields] = useState({});
     const [loading, setLoading] = useState(true);
     const [fatalError, setFatalError] = useState({});
@@ -50,7 +50,7 @@ const EditMetadataEventsModal = ({ close, selectedRows, updateBulkMetadata, user
             }
             setLoading(false);
         }
-        fetchData();
+        fetchData().then();
     }, []);
 
     const handleSubmit = values => {

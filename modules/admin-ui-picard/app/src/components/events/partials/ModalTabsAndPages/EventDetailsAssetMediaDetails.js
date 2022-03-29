@@ -11,7 +11,7 @@ import {formatDuration, humanReadableBytesFilter} from "../../../../utils/eventD
 /**
  * This component manages the media details sub-tab for assets tab of event details modal
  */
-const EventDetailsAssetMediaDetails = ({ eventId, t, setHierarchy,
+const EventDetailsAssetMediaDetails = ({ t, setHierarchy,
                                              media, isFetching }) => {
 
     const openSubTab = (subTabName) => {

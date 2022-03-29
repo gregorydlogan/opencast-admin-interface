@@ -13,7 +13,6 @@ import {addNotification} from "../../../thunks/notificationThunks";
 import {NOTIFICATION_CONTEXT} from "../../../configs/modalConfig";
 import {removeNotificationWizardForm} from "../../../actions/notificationActions";
 import {createPolicy, prepareAccessPolicyRulesForPost} from "../../../utils/resourceUtils";
-import {getPolicies} from "../../../selectors/eventDetailsSelectors";
 import {getUserInformation} from "../../../selectors/userInfoSelectors";
 import {hasAccess} from "../../../utils/utils";
 
@@ -63,14 +62,14 @@ const ResourceDetailsAccessPolicyTab = ({ resourceId, header, t, policies, fetch
                 fetchTransactionResult.active !== undefined ?
                     setTransactions({read_only: fetchTransactionResult.active})
                     : setTransactions({read_only: true});
-                if (fetchTransactionResult.active == undefined || fetchTransactionResult.active) {
+                if (fetchTransactionResult.active === undefined || fetchTransactionResult.active) {
                     addNotification('warning', 'ACTIVE_TRANSACTION', -1, null, NOTIFICATION_CONTEXT);
                 }
             }
             setLoading(false);
         }
 
-        fetchData().then(r => {});
+        fetchData().then();
     }, []);
 
     /* resets the formik form and hides the save and cancel buttons */
@@ -125,6 +124,7 @@ const ResourceDetailsAccessPolicyTab = ({ resourceId, header, t, policies, fetch
         let roleWithFullRightsExists = false;
         let allRulesValid = true;
 
+        // eslint-disable-next-line array-callback-return
         values.policies.map(policy => {
             if (policy.read && policy.write) {
                 roleWithFullRightsExists = true;
@@ -189,8 +189,8 @@ const ResourceDetailsAccessPolicyTab = ({ resourceId, header, t, policies, fetch
                                     initialValues={{policies: [...policies], template: ""}}
                                     enableReinitialize
                                     validate={values => validateFormik(values)}
-                                    onSubmit={(values, actions) =>
-                                        saveAccess(values).then(r => {})
+                                    onSubmit={(values) =>
+                                        saveAccess(values).then()
                                     }
                                 >
                                     {formik => (

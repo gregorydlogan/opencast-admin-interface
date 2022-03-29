@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import cn from 'classnames';
 import {connect} from "react-redux";
-import {getCurrentLanguageInformation, hasAccess} from "../../../../utils/utils";
+import {hasAccess} from "../../../../utils/utils";
 import EventDetailsCommentsTab from "../ModalTabsAndPages/EventDetailsCommentsTab";
 import EventDetailsAccessPolicyTab from "../ModalTabsAndPages/EventDetailsAccessPolicyTab";
 import EventDetailsWorkflowTab from "../ModalTabsAndPages/EventDetailsWorkflowTab";
@@ -34,10 +34,8 @@ import {fetchMetadata, updateMetadata, updateExtendedMetadata, fetchSchedulingIn
 import {removeNotificationWizardForm} from "../../../../actions/notificationActions";
 import {getUserInformation} from "../../../../selectors/userInfoSelectors";
 import EventDetailsSchedulingTab from "../ModalTabsAndPages/EventDetailsSchedulingTab";
+import DetailsExtendedMetadataTab from "../ModalTabsAndPages/DetailsExtendedMetadataTab";
 
-
-// Get info about the current language and its date locale
-const currentLanguage = getCurrentLanguageInformation();
 
 /**
  * This component manages the pages of the event details
@@ -49,8 +47,8 @@ const EventDetails = ({ tabIndex, eventId, close,
 
     useEffect(() => {
         removeNotificationWizardForm();
-        loadMetadata(eventId).then(r => {});
-        loadScheduling(eventId).then(r => {});
+        loadMetadata(eventId).then();
+        loadScheduling(eventId).then();
     }, []);
 
     const [page, setPage] = useState(tabIndex);
