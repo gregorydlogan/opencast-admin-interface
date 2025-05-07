@@ -11,6 +11,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: determine the correct test server
+        run: echo "TEST_SERVER=`./.github/get-release-server.sh`" >> GITHUB_ENV
+
   main:
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +30,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-      - name: get Node.js
+      - name: get node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -36,7 +42,7 @@ jobs:
         env:
           PUBLIC_URL: /${{ steps.build-path.outputs.build }}
           NODE_ENV: development
-          VITE_TEST_SERVER_URL: "https://develop.opencast.org"
+          VITE_TEST_SERVER_URL: ${{ TEST_SERVER }}
           VITE_TEST_SERVER_AUTH: "admin:opencast"
         run: npm run build
 
