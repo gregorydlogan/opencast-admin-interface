@@ -41,7 +41,7 @@ jobs:
 
       - name: restore cache
         id: cache-builds
-        run: actions/cache/restore@v4
+        uses: actions/cache/restore@v4
         with:
           path: gh-pages
           id: gh-pages
