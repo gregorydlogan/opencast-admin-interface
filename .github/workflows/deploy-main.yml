@@ -57,7 +57,7 @@ jobs:
 
       - name: Clone repository
         run: |
-          git clone "git@github.com:opencast/opencast-admin-interface.git" ~/admin-interface-clone
+          git clone "git@github.com:gregorydlogan/opencast-admin-interface.git" ~/admin-interface-clone
           cd ~/admin-interface-clone
           git checkout gh-pages
 
