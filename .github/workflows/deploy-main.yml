@@ -36,7 +36,6 @@ jobs:
       - name: build project
         env:
           NODE_ENV: development
-            #VITE_TEST_SERVER_URL: ${{ TEST_SERVER }}
           VITE_TEST_SERVER_AUTH: "admin:opencast"
         run: npm run build
 
