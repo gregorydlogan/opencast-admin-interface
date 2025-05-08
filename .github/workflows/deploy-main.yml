@@ -21,7 +21,6 @@ jobs:
         run: echo "VITE_TEST_SERVER_URL=`./.github/get-release-server.sh ${{ github.ref_name }}`" >> GITHUB_ENV
 
   build:
-    if: github.repository_owner == 'opencast'
     needs: detect
     runs-on: ubuntu-latest
     steps:
@@ -70,7 +69,6 @@ jobs:
           id: gh-pages
 
   deploy:
-    if: github.repository_owner == 'opencast'
     needs: build
 
     permissions:
