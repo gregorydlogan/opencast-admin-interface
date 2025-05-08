@@ -41,50 +41,49 @@ jobs:
           VITE_TEST_SERVER_AUTH: "admin:opencast"
         run: npm run build
 
-      - name: restore cache
-        id: cache-builds
-        uses: actions/cache/restore@v4
-        with:
-          path: gh-pages
-          key: gh-pages
-
-      - name: create pages directory
+      - name: Prepare git
         run: |
-          mkdir -p gh-pages/${{ github.ref_name }}
-          rm -rf gh-pages/${{ github.ref_name }}/*
+          git config --global user.name "Release Bot"
+          git config --global user.email "cloud@opencast.org"
 
-      - name: include admin interface
-        run: mv build gh-pages/${{ github.ref_name }}/admin-ui
-
-      - name: include landing page
+      - name: Prepare GitHub SSH key
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         run: |
-          cp .github/demo-page.html gh-pages/index.html
-          ls -R gh-pages
+          install -dm 700 ~/.ssh/
+          echo "${DEPLOY_KEY}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      - name: upload test page artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./gh-pages
+      - name: Clone repository
+        run: |
+          git clone "git@github.com:opencast/opencast-admin-interface.git" ~/admin-interface-clone
+          cd ~/admin-interface-clone
+          git checkout gh-pages
 
-      - name: cache built artifacts
-        uses: actions/cache@v4
-        with:
-          path: gh-pages
-          key: gh-pages
+      - name: Commit new version
+        run: |
+          #Temp becomes something like r/17.x
+          export TEMP=${{ github.ref_name }}
+          #Strip the r/ prefix, giving us just 17.x.  If this is main/develop this does nothing
+          export TARGET=~/admin-interface-clone/${TEMP#r\/}
+          # Update gh-pages
+          rm -rf $TARGET
+          mkdir -p $TARGET
+          cp -r build/* $TARGET
+          # Add the new build to the repo
+          cd ~/admin-interface-clone
+          #Generate an index, in case anyone lands at the root of the test domain
+          echo '<html><body><ul>' > index.html
+          find . -mindepth 1 -maxdepth 1 -type d \
+            | grep -v .git \
+            | sort -r \
+            | sed 's/^\(.*\)$/<li><a href=\1>\1<\/a><\/li>/' >> index.html
+          echo '</ul></body></html>' >> index.html
+          git add ./*
+          git diff --staged --quiet || git amend -m "Build $(date)"
 
-  deploy:
-    needs: build
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Push updates
+        run: |
+          cd ~/admin-interface-clone
+          git push origin gh-pages --force
