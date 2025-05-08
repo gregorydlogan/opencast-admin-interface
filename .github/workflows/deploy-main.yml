@@ -49,7 +49,9 @@ jobs:
           key: gh-pages
 
       - name: create pages directory
-        run: mkdir -p gh-pages/${{ github.ref_name }}
+        run: |
+          mkdir -p gh-pages/${{ github.ref_name }}
+          rm -rf gh-pages/${{ github.ref_name }}
 
       - name: include admin interface
         run: mv build gh-pages/${{ github.ref_name }}/admin-ui
