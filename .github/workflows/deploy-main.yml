@@ -81,7 +81,7 @@ jobs:
             | sed 's/^\(.*\)$/<li><a href=\1>\1<\/a><\/li>/' >> index.html
           echo '</ul></body></html>' >> index.html
           git add ./*
-          git diff --staged --quiet || git amend -m "Build $(date)"
+          git diff --staged --quiet || git commit --amend -m "Build $(date)"
 
       - name: Push updates
         run: |
