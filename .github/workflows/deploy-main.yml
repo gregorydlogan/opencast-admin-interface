@@ -57,7 +57,9 @@ jobs:
         run: mv build gh-pages/${{ github.ref_name }}/admin-ui
 
       - name: include landing page
-        run: cp .github/demo-page.html gh-pages/index.html
+        run: |
+          cp .github/demo-page.html gh-pages/index.html
+          ls -R gh-pages
 
       - name: upload test page artifact
         uses: actions/upload-pages-artifact@v3
