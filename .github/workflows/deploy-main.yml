@@ -11,15 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  detect:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v4
-
-      - name: determine the correct test server
-        run: echo "VITE_TEST_SERVER_URL=`./.github/get-release-server.sh ${{ github.ref_name }}`" >> GITHUB_ENV
-
   build:
     needs: detect
     runs-on: ubuntu-latest
@@ -35,8 +26,13 @@ jobs:
       - name: download dependencies
         run: npm ci
 
+      - name: determine the correct test server
+        id: vite-url
+        run: echo "VITE_TEST_SERVER_URL=`./.github/get-release-server.sh ${{ github.ref_name }}`" >> GITHUB_ENV
+
       - name: build project
         env:
+          VITE_TEST_SERVER_URL: ${{ steps.vite-url.outputs.VITE_TEST_SERVER_URL }}
           NODE_ENV: development
           VITE_TEST_SERVER_AUTH: "admin:opencast"
         run: npm run build
