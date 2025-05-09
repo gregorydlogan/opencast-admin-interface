@@ -9,6 +9,7 @@ name: Create release
 jobs:
   build:
     name: Create release from tag
+    if: github.repository_owner == 'opencast'
     runs-on: ubuntu-latest
     permissions:
       contents: write #for the release
@@ -65,7 +66,7 @@ jobs:
           #This token is an account wide token which allows creation of PRs and pushes.
           #echo "GH_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> token.txt
           #gh auth login --with-token < token.txt
-          git clone -b r/$BASE_BRANCH "git@github.com:gregorydlogan/opencast.git" ~/opencast
+          git clone -b r/$BASE_BRANCH "git@github.com:opencast/opencast.git" ~/opencast
           cd ~/opencast
           git checkout -b t/admin-ui-$INTERFACE_TAG
 
@@ -75,11 +76,11 @@ jobs:
         run: |
           cd ~/opencast
           sed -i "s#<interface.sha256>.*</interface.sha256>#<interface.sha256>$INTERFACE_CHECKSUM</interface.sha256>#" modules/admin-ui-interface/pom.xml
-          sed -i "s#<interface.url>.*</interface.url>#<interface.url>https://github.com/gregorydlogan/opencast-admin-interface/releases/download/$INTERFACE_TAG/oc-admin-ui-$INTERFACE_TAG.tar.gz</interface.url>#" modules/admin-ui-interface/pom.xml
+          sed -i "s#<interface.url>.*</interface.url>#<interface.url>https://github.com/opencast/opencast-admin-interface/releases/download/$INTERFACE_TAG/oc-admin-ui-$INTERFACE_TAG.tar.gz</interface.url>#" modules/admin-ui-interface/pom.xml
           git add modules/admin-ui-interface/pom.xml
           git commit -m "Updating admin ui to $INTERFACE_TAG"
           git push origin t/admin-ui-$INTERFACE_TAG
           #This token is an account wide token which allows creation of PRs and pushes.
           echo "${{ secrets.PR_TOKEN }}" > token.txt
           gh auth login --with-token < token.txt
-          gh pr create --title "Update $BASE_BRANCH Admin UI to $INTERFACE_TAG" --label admin-ui --label maintenance --body "Updating Opencast $BASE_BRANCH Admin UI module to $INTERFACE_TAG" --head=opencast:t/admin-ui-$INTERFACE_TAG --base r/$BASE_BRANCH -R gregorydlogan/opencast
+          gh pr create --title "Update $BASE_BRANCH Admin UI to $INTERFACE_TAG" --label admin-ui --label maintenance --body "Updating Opencast $BASE_BRANCH Admin UI module to $INTERFACE_TAG" --head=opencast:t/admin-ui-$INTERFACE_TAG --base r/$BASE_BRANCH -R opencast/opencast
