@@ -64,5 +64,4 @@ jobs:
 
       - name: Push updates
         run: |
-          cd ~/admin-interface-clone
           git push origin gh-pages --force
