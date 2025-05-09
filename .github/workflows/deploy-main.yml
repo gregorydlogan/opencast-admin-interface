@@ -40,27 +40,13 @@ jobs:
           git config --global user.name "Release Bot"
           git config --global user.email "cloud@opencast.org"
 
-      - name: Prepare GitHub SSH key
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        run: |
-          install -dm 700 ~/.ssh/
-          echo "${DEPLOY_KEY}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Clone repository
-        run: |
-          git clone "git@github.com:gregorydlogan/opencast-admin-interface.git" ~/admin-interface-clone
-          cd ~/admin-interface-clone
-          git checkout gh-pages
-
       - name: Commit new version
         run: |
+          git checkout gh-pages
           #Temp becomes something like r/17.x
           export TEMP=${{ github.ref_name }}
           #Strip the r/ prefix, giving us just 17.x.  If this is main/develop this does nothing
-          export TARGET=~/admin-interface-clone/${TEMP#r\/}
+          export TARGET=${TEMP#r\/}
           # Update gh-pages
           rm -rf $TARGET
           mkdir -p $TARGET
