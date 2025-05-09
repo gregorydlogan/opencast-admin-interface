@@ -52,8 +52,6 @@ jobs:
           rm -rf $TARGET
           mkdir -p $TARGET
           cp -r build/* $TARGET
-          # Add the new build to the repo
-          cd ~/admin-interface-clone
           #Generate an index, in case anyone lands at the root of the test domain
           echo '<html><body><ul>' > index.html
           find . -mindepth 1 -maxdepth 1 -type d \
