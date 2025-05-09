@@ -42,6 +42,7 @@ jobs:
 
       - name: Commit new version
         run: |
+          git fetch origin
           git checkout gh-pages
           #Temp becomes something like r/17.x
           export TEMP=${{ github.ref_name }}
