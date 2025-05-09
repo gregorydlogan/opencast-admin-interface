@@ -1,5 +1,4 @@
 on:
-  workflow_dispatch:
   push:
     tags:
       # CF: 17.x-YYYY-MM-DD
