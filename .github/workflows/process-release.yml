@@ -9,7 +9,6 @@ name: Create release
 jobs:
   build:
     name: Create release from tag
-    if: github.repository_owner == 'opencast'
     runs-on: ubuntu-latest
     outputs:
       checksum: ${{ steps.tarball.outputs.checksum }}
@@ -75,7 +74,6 @@ jobs:
 
   upstream-pr:
     name: Create upstream PR to incorporate release
-    if: github.repository_owner == 'opencast'
     runs-on: ubuntu-latest
     needs: build
     permissions:
