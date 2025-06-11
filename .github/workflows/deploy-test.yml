@@ -12,7 +12,6 @@ concurrency:
 
 jobs:
   detect:
-    if: ${{ github.event.pull_request.head.repo.full_name == 'opencast/opencast-admin-interface' }}
     runs-on: ubuntu-latest
     outputs:
       server: ${{ steps.test-server.outputs.server }}
@@ -134,7 +133,7 @@ jobs:
           comment-tag: static-test-deployment
           message: >
             This pull request is deployed at
-            [test.admin-interface.opencast.org/${{ steps.build-path.outputs.build }}
-            ](https://test.admin-interface.opencast.org/${{ steps.build-path.outputs.build }}).
+            [test.admin-interface.loganite.ca/${{ steps.build-path.outputs.build }}
+            ](https://test.admin-interface.loganite.ca/${{ steps.build-path.outputs.build }}).
 
             It might take a few minutes for it to become available.
