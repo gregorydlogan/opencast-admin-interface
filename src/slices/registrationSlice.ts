@@ -38,17 +38,11 @@ const registrationSlice = createSlice({
 	// These are used for thunks
 	extraReducers: builder => {
 		builder
-			/* .addCase(fetchRegistration.pending, state => {
-				state.statusHealth = "loading";
-			}) */
 			.addCase(fetchRegistration.fulfilled, (state, _action: PayloadAction<
 				Registration
 			>) => {
         state.registration = true;
-			})
-			/* .addCase(fetchHealthStatus.rejected, (state, action) => {
-        state.error = true;
-			}) */;
+			});
 	},
 });
 
