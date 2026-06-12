@@ -1,0 +1,37 @@
+name: PRs » Build container image
+
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  container-image-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push images
+        uses: docker/build-push-action@v6
+        with:
+          push: false # This is handled in another workflow!
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=docker,dest=${{ runner.temp }}/build.tar
+
+      - name: Upload docker image to GHA
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: ${{ runner.temp }}/build.tar
