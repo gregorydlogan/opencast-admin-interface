@@ -84,6 +84,7 @@ jobs:
       - name: Add comment with deployment location
         uses: thollander/actions-comment-pull-request@v3
         with:
+          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
           comment-tag: static-test-deployment
           message: >
             This pull request is deployed at
