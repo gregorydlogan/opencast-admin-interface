@@ -74,7 +74,7 @@ jobs:
         working-directory: admin-interface-test
         run: |
           git add .
-          git commit --amend -m "Build ${{ steps.build-path.outputs.build }}"
+          git commit --amend -m "Build ${{ github.event.workflow_run.pull_requests[0].number }}"
 
       - name: Force push admin interface test branch
         working-directory: admin-interface-test
