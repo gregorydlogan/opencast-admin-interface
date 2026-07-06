@@ -18,6 +18,13 @@ jobs:
       server: ${{ steps.test-server.outputs.server }}
       branch: ${{ steps.branch-name.outputs.branch }}
     steps:
+      - name: Wait for previous workflows to finish
+        uses: softprops/turnstyle@v3
+        with:
+          same-branch-only: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout sources
         uses: actions/checkout@v5
 
