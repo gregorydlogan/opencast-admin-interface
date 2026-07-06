@@ -1,9 +1,6 @@
 name: Build » Container image
 
 on:
-  push:
-    branches-ignore:
-      - 'dependabot/**'
   pull_request:
     types:
       - opened
