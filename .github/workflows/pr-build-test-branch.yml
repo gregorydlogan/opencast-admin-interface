@@ -15,7 +15,6 @@ env:
 
 jobs:
   detect-repo-owner:
-    if: github.repository_owner == 'opencast'
     runs-on: ubuntu-latest
     outputs:
       server: ${{ steps.test-server.outputs.server }}
@@ -69,7 +68,7 @@ jobs:
       - name: Upload build to GHA
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: ${{ github.run_id }}
           path: ${{ runner.temp }}/build.tar
 
 
