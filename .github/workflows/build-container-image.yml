@@ -1,4 +1,4 @@
-name: PRs » Build container image
+name: Build » Container image
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push images
+      - name: Build image
         uses: docker/build-push-action@v6
         with:
           push: false # This is handled in another workflow!
@@ -30,8 +30,8 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=docker,dest=${{ runner.temp }}/build.tar
 
-      - name: Upload docker image to GHA
+      - name: Upload docker image to GHA artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: ${{ github.run_id }}
           path: ${{ runner.temp }}/build.tar

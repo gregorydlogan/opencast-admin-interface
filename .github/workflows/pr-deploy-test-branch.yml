@@ -42,8 +42,9 @@ jobs:
       - name: Fetch build from GHA
         uses: actions/download-artifact@v4
         with:
-          name: build
-          path: ${{ runner.temp }}/build.tar
+          name: ${{ github.event.workflow_run.id }}
+          path: ${{ runner.temp }}/
+          github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Store build in the clone
@@ -73,7 +74,7 @@ jobs:
         working-directory: admin-interface-test
         run: |
           git add .
-          git commit --amend -m "Build ${{ steps.build-path.outputs.build }}"
+          git commit --amend -m "Build ${{ github.event.workflow_run.pull_requests[0].number }}"
 
       - name: Force push admin interface test branch
         working-directory: admin-interface-test
@@ -83,6 +84,7 @@ jobs:
       - name: Add comment with deployment location
         uses: thollander/actions-comment-pull-request@v3
         with:
+          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
           comment-tag: static-test-deployment
           message: >
             This pull request is deployed at
