@@ -36,7 +36,7 @@ jobs:
 
       - name: Push main branch image
         run: |
-          docker push ghcr.io/{{ github.repository_owner }}/admin-interface:pr-${{ github.event.workflow_run.pull_request[0].number }}
+          docker push ghcr.io/${{ github.repository_owner }}/admin-interface:pr-${{ github.event.workflow_run.pull_request[0].number }}
 
       - name: Add comment
         uses: thollander/actions-comment-pull-request@v3
