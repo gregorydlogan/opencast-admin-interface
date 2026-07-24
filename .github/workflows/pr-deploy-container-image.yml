@@ -25,7 +25,7 @@ jobs:
       - name: Download docker image from GHA
         uses: actions/download-artifact@v8
         with:
-          name: ${{ github.event.workflow_run.id }}
+          name: ${{ github.event.workflow_run.id }}-image
           path: ${{ runner.temp }}
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
@@ -34,9 +34,20 @@ jobs:
         run: |
           docker load --input ${{ runner.temp }}/build.tar
 
-      - name: Push main branch image
+      - name: Fetch pr number from GHA
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ github.event.workflow_run.id }}-number
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Read PR Number
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/admin-interface:pr-${{ github.event.workflow_run.pull_requests[0].number }}
+          echo "PR_NUMBER=$(cat pr_number.txt)" >> $GITHUB_ENV
+
+      - name: Push PR image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/admin-interface:pr-${{ env.PR_NUMBER }}
 
       - name: Add comment
         uses: thollander/actions-comment-pull-request@v3
