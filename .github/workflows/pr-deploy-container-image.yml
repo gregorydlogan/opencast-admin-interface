@@ -43,7 +43,7 @@ jobs:
 
       - name: Read PR Number
         run: |
-          echo $(cat pr_number.txt) >> $GITHUB_ENV
+          echo "PR_NUMBER=$(cat pr_number.txt)" >> $GITHUB_ENV
 
       - name: Push PR image
         run: |
